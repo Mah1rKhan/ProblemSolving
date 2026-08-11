@@ -6,8 +6,9 @@ Problem Description : Given a positive integer number, check whether the number 
 using namespace std;
 
 /*
-Intuition : Count the number of factors of n using sqrt(n) approach, if the count == 2, return true
-otherwise return false
+Intuition : Check for divisibility rule in range [2, sqrt(n)], if n is divisible by any number in this
+range, return false
+Otherwise return true
 */
 bool isPrime(int n)
 {
