@@ -11,20 +11,19 @@ otherwise return false
 */
 bool isPrime(int n)
 {
-    int count = 0;
+    if (n < 2)
+    {
+        return false;
+    }
 
-    for (int i = 1; i * i <= n; i++)
+    for (int i = 2; i * i <= n; i++)
     {
         if (n % i == 0)
         {
-            count++;
-            if (n / i != i)
-            {
-                count++;
-            }
+            return false;
         }
     }
-    return (count == 2);
+    return true;
 }
 
 int main()
