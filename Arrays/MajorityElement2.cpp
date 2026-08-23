@@ -142,9 +142,11 @@ vector<int> majorityElement2_3(vector<int> &arr)
 int main()
 {
     vector<int> arr = {4, 3, 4, 2, 4, 2, 4, 2, 5, 2};
+    cout << "Array : ";
     display(arr);
 
     vector<int> majorityElements = majorityElement2_3(arr);
+    cout << "Majority elements : ";
     display(majorityElements);
 
     return 0;
