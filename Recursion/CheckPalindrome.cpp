@@ -1,3 +1,4 @@
+// Program to check if a given string is a palindrome or not using recursion
 #include <iostream>
 using namespace std;
 
@@ -22,11 +23,19 @@ bool checkPalindrome(string &s)
 
 int main()
 {
-    string s = "RACECAR";
+    string s;
+    cout << "Enter String here : ";
+    cin >> s;
 
     bool isPalindrome = checkPalindrome(s);
-
-    cout << isPalindrome;
+    if (isPalindrome)
+    {
+        cout << "Given string is a Palindrome";
+    }
+    else
+    {
+        cout << "Given string is NOT a Palindrome";
+    }
 
     return 0;
 }
