@@ -21,6 +21,7 @@ bool isPrime(int n)
     {
         if (n % i == 0)
         {
+            cout << "It has factors : " << i << " and " << n / i << endl;
             return false;
         }
     }
@@ -29,7 +30,7 @@ bool isPrime(int n)
 
 int main()
 {
-    int n = 14;
+    int n = 127;
 
     if (isPrime(n))
     {

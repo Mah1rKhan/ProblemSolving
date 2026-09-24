@@ -30,7 +30,7 @@ int gcd(int m, int n)
 
 int main()
 {
-    int m = 6765, n = 10945;
+    int m = 6765, n = 10947;
 
     cout << "The GCD of " << m << " and " << n << " : " << gcd(m, n);
 

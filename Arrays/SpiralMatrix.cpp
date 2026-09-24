@@ -42,6 +42,7 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
         {
             result.push_back(matrix[i][right]);
         }
+
         right--;
 
         if (top <= bottom)
@@ -62,6 +63,7 @@ vector<int> spiralOrder(vector<vector<int>> &matrix)
             left++;
         }
     }
+
     return result;
 }
 

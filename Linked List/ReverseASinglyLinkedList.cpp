@@ -1,4 +1,4 @@
-    #include <iostream>
+#include <iostream>
 using namespace std;
 
 class ListNode
@@ -80,22 +80,22 @@ ListNode *reverseSinglyLinkedList2(ListNode *head)
     {
         return head;
     }
-    ListNode *last = nullptr;
-    ListNode *c = head;
+    ListNode *lastNode = nullptr;
+    ListNode *currNode = head;
 
-    while (c != nullptr)
+    while (currNode != nullptr)
     {
-        ListNode *nextNode = c->next;
-        c->next = last;
-        last = c;
-        c = nextNode;
+        ListNode *nextNode = currNode->next;
+        currNode->next = lastNode;
+        lastNode = currNode;
+        currNode = nextNode;
     }
-    return last;
+    return lastNode;
 }
 
 int main()
 {
-    vector<int> arr = {12, 5, 7, 3, 2, 11};
+    vector<int> arr = {6, 5, 4, 3, 2, 1};
     ListNode *head = arrToLinkedList(arr);
 
     display(head);

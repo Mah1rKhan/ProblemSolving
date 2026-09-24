@@ -1,9 +1,0 @@
-*.o
-*.out
-*.exe
-*.obj
-*.log
-*.class
-build/
-bin/
-.vscode/

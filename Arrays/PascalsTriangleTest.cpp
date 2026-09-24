@@ -3,9 +3,9 @@ using namespace std;
 
 void display(vector<vector<int>> &arr)
 {
-    for(auto row : arr)
+    for (auto row : arr)
     {
-        for(auto x : row)
+        for (auto x : row)
         {
             cout << x << ' ';
         }
@@ -17,10 +17,10 @@ void display(vector<vector<int>> &arr)
 long long nCr(int n, int r)
 {
     long long res = 1;
-    for(int i=0; i<r; i++)
+    for (int i = 0; i < r; i++)
     {
-        res *= (n-i);
-        res = res/(i+1);
+        res *= (n - i);
+        res = res / (i + 1);
     }
     return res;
 }
@@ -28,12 +28,12 @@ long long nCr(int n, int r)
 vector<vector<int>> pascalsTriangle(int numRows)
 {
     vector<vector<int>> result;
-    for(int n=1; n<=numRows; n++)
+    for (int n = 1; n <= numRows; n++)
     {
         vector<int> row;
-        for(int r=1; r<=n; r++)
+        for (int r = 1; r <= n; r++)
         {
-            row.push_back(nCr(n-1,r-1));
+            row.push_back(nCr(n - 1, r - 1));
         }
         result.push_back(row);
     }
@@ -45,6 +45,9 @@ int main()
 
     int numRows = 5;
 
+    cout << "No. of rows : " << numRows << endl;
+
+    cout << "Pascal's Triangle : " << endl;
     vector<vector<int>> triangle = pascalsTriangle(numRows);
     display(triangle);
 
