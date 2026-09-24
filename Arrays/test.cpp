@@ -1,32 +1,36 @@
-class Solution
+#include <iostream>
+using namespace std;
+
+void display(vector<vector<int>> &matrix)
 {
-public:
-    void rotate90(vector<vector<int>> &matrix)
+    for (auto row : matrix)
     {
-        vector<vector<int>> result;
-        int n = matrix.size();
-        for (int i = 0; i < n; i++)
+        for (auto x : row)
         {
-            vector<int> col;
-            for (int j = 0; j < n; j++)
-            {
-                col.push_back(matrix[j][i]);
-            }
-            reverse(col.begin(), col.end());
-            result.push_back(col);
+            cout << x << ' ';
         }
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                matrix[i][j] = result[i][j];
-            }
-        }
+        cout << endl;
     }
-    void rotateMatrix(vector<vector<int>> &matrix)
+}
+
+int main()
+{
+    vector<vector<int>> matrix = {{1, 2, 3, 4, 5},
+                                  {6, 7, 8, 9, 0},
+                                  {1, 2, 3, 4, 5},
+                                  {6, 7, 8, 9, 0},
+                                  {1, 2, 3, 4, 5}};
+
+    // display(matrix);
+
+    for (int i = 0; i <= 5; i++)
     {
-        rotate90(matrix);
-        rotate90(matrix);
-        rotate90(matrix);
+        for (int j = i + 1; j <= 5; j++)
+        {
+            cout << j << ' ';
+        }
+        cout << endl;
     }
-};
+
+    return 0;
+}

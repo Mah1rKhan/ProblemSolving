@@ -1,3 +1,10 @@
+/*
+Problem Name : Set Matrix Zeroes
+Problem Description : Given a 2-D array consisting of M rows of N integers.
+If any element in matrix is zero , set all the elements in its row to zero and set
+all elements in its col to zero
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -95,9 +102,6 @@ void setMatrixZeroes2(vector<vector<int>> &arr)
             }
         }
     }
-    display2(row);
-    display2(col);
-    cout << endl;
 
     for (int i = 0; i < m; i++)
     {
@@ -110,28 +114,27 @@ void setMatrixZeroes2(vector<vector<int>> &arr)
         }
     }
 }
-
 void setMatrixZeroes3(vector<vector<int>> &arr)
 {
     int m = arr.size();
     int n = arr[0].size();
 
-    // ith row -> arr[.][0]
-    // jth col -> arr[0][j]
+    // arr[i][0] -> marks ith row
+    // arr[0][j] -> marks jth column
 
     int col0 = 1;
 
+    // STEP 1: Mark rows and columns
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
             if (arr[i][j] == 0)
             {
-                // mark ith row
-
+                // Mark ith row
                 arr[i][0] = 0;
 
-                // mark jth col
+                // Mark jth column
                 if (j != 0)
                 {
                     arr[0][j] = 0;
@@ -142,48 +145,54 @@ void setMatrixZeroes3(vector<vector<int>> &arr)
                 }
             }
         }
+    }
 
-        for (int i = 1; i < m; i++)
+    // STEP 2: Set inner matrix elements to zero
+    for (int i = 1; i < m; i++)
+    {
+        for (int j = 1; j < n; j++)
         {
-            for (int j = 1; j < n; j++)
+            if (arr[i][j] != 0)
             {
-                if (arr[i][j] != 0)
+                if (arr[i][0] == 0 || arr[0][j] == 0)
                 {
-                    if (arr[i][0] == 0 || arr[0][j] == 0)
-                    {
-                        arr[i][j] = 0;
-                    }
+                    arr[i][j] = 0;
                 }
             }
         }
-        if (arr[0][0] == 0)
+    }
+
+    // STEP 3: Handle first row
+    if (arr[0][0] == 0)
+    {
+        for (int j = 0; j < n; j++)
         {
-            for (int j = 0; j < n; j++)
-            {
-                arr[0][j] = 0;
-            }
+            arr[0][j] = 0;
         }
-        if (col0 == 0)
+    }
+
+    // STEP 4: Handle first column
+    if (col0 == 0)
+    {
+        for (int i = 0; i < m; i++)
         {
-            for (int i = 0; i < m; i++)
-            {
-                arr[i][0] = 0;
-            }
+            arr[i][0] = 0;
         }
     }
 }
 
 int main()
 {
-    vector<vector<int>> arr = {{1, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 0}};
+    vector<vector<int>> arr = {{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}};
+    cout << "Original Matrix : " << endl;
     display(arr);
 
     // setMatrixZeroes1(arr);
-    // display(arr);
 
     // setMatrixZeroes2(arr);
-    // display(arr);
 
     setMatrixZeroes3(arr);
+
+    cout << "Matrix after setting zeroes : " << endl;
     display(arr);
 }
