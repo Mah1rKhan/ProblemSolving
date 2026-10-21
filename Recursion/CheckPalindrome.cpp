@@ -2,23 +2,31 @@
 #include <iostream>
 using namespace std;
 
-bool check(int index, string &s)
+/*
+Intuition : Think of matching the characters from both ends simultanously , when we reach the centre
+(n/2). we have matched all the characters
+
+Time Complexity : O(N/2)
+Aux. Space Req. : O(1)
+*/
+
+bool check(string &s, int startInd, int endInd)
 {
-    if (index >= s.size() / 2)
+    if (startInd >= endInd)
     {
         return true;
     }
-
-    if (s[index] != s[s.size() - index - 1])
+    else if (s[startInd] != s[endInd])
     {
         return false;
     }
-    return check(index + 1, s);
+
+    return check(s, startInd + 1, endInd - 1);
 }
 
 bool checkPalindrome(string &s)
 {
-    return check(0, s);
+    return check(s, 0, s.size() - 1);
 }
 
 int main()
@@ -30,11 +38,11 @@ int main()
     bool isPalindrome = checkPalindrome(s);
     if (isPalindrome)
     {
-        cout << "Given string is a Palindrome";
+        cout << "Given string " << "\"" << s << "\"" << " is a Palindrome ";
     }
     else
     {
-        cout << "Given string is NOT a Palindrome";
+        cout << "Given string " << "\"" << s << "\"" << " is NOT a Palindrome ";
     }
 
     return 0;

@@ -8,13 +8,20 @@ using namespace std;
 
 void display(vector<int> &arr)
 {
-    for(auto x : arr)
+    for (auto x : arr)
     {
         cout << x << ' ';
     }
     cout << endl;
 }
 
+void display(vector<vector<int>> &arr)
+{
+    for (auto row : arr)
+    {
+        display(row);
+    }
+}
 
 /*
 Intuition : Use the concept of 1. pick and 2. not pick (pick and then remove) to generate all subsequences
@@ -22,62 +29,63 @@ keep a sum variable to store sum, if at any point sum equals k, we push that sub
 when doing step 2. not pick, we subtract the element from sum so that way we dont pick in subseq. and
 sum also
 
-Do this recursively to get all possible subsequences and all valid subsequences that satisfy condition 
+Do this recursively to get all possible subsequences and all valid subsequences that satisfy condition
 of sum == k
 
-Time Complexity : O(2^N) 
+Time Complexity : O(2^N)
 The total number of ordered subsequences possible for array of size N = 2^N
 
 Aux. Space Req. : O(2^N)
 
 */
-int steps = 0;
-void f(int index, vector<int> &arr, vector<int> &subseq, int k, int sum, vector<vector<int>> &ans)
+
+void generate(vector<int> &arr, int ind, int sum, int k, vector<vector<int>> &subsequences,
+              vector<int> &currSubsequence)
 {
-    steps++;
-    if(index >= arr.size())
+    if (ind == arr.size())
     {
-        if(sum == k)
+        if (sum == k)
         {
-            ans.push_back(subseq);
+            subsequences.push_back(currSubsequence);
         }
         return;
     }
 
-    subseq.push_back(arr[index]);
-    sum += arr[index];
+    // Pick condition
+    currSubsequence.push_back(arr[ind]);
+    // sum += arr[ind];
+    generate(arr, ind + 1, sum + arr[ind], k, subsequences, currSubsequence);
 
-    f(index+1, arr, subseq, k, sum, ans);
-
-    subseq.pop_back();
-    sum -= arr[index];
-    
-    f(index+1, arr, subseq, k, sum, ans);
+    // Not pick condition
+    currSubsequence.pop_back();
+    // sum -= arr[ind];
+    generate(arr, ind + 1, sum, k, subsequences, currSubsequence);
 }
 
 vector<vector<int>> subsequencesWithSumK(vector<int> &arr, int k)
 {
     int sum = 0;
-    vector<int> subseq;
-    vector<vector<int>> ans;
-    f(0, arr, subseq, k, sum, ans);
+    vector<int> currSubsequence;
+    vector<vector<int>> subsequences;
 
-    return ans;
+    generate(arr, 0, sum, k, subsequences, currSubsequence);
+
+    return subsequences;
 }
 
 int main()
 {
-    vector<int> arr = {1,2,3,4,5,6,7};
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
+    cout << "Array is : ";
+    display(arr);
 
     int k = 7;
 
     vector<vector<int>> ans = subsequencesWithSumK(arr, k);
 
-    cout << "steps : " << steps << endl;
-    for(auto subseq : ans)
-    {
-        display(subseq);
-    }
+    cout << "Subsequences with sum " << k << " are :" << endl;
+
+    display(ans);
 
     return 0;
 }

@@ -8,7 +8,7 @@ using namespace std;
 
 void display(vector<int> &arr)
 {
-    for(auto x : arr)
+    for (auto x : arr)
     {
         cout << x << ' ';
     }
@@ -24,40 +24,42 @@ Intuition : Use the concept of 1. pick (add element to sum and subseq.) ,
  and whenever we get true during recursion, we break the recursion by returning true
 
 Time Complexity : O(2^N) in worst case
-as we may have to generate all subsequences 
+as we may have to generate all subsequences
 Aux. Space Req. : O(2^N)
 */
 
 bool f(int index, vector<int> &arr, int sum, int k, vector<int> &subseq)
 {
-    if(index >= arr.size())
+    if (index == arr.size())
     {
-        // Condition satisfied
-        if(sum == k)
+        if (sum == k)
         {
             return true;
         }
-        // Condition not satisfied
         return false;
     }
 
-    sum += arr[index];
+    // pick condition
     subseq.push_back(arr[index]);
+    sum += arr[index];
 
-    if(f(index+1, arr, sum, k, subseq) == true)
+    if (f(index + 1, arr, sum, k, subseq) == true)
     {
-        // Found answer (stored in subseq)
+        // Answer stored in subseq
         return true;
     }
 
+    // Not pick condition
     subseq.pop_back();
     sum -= arr[index];
 
-    if(f(index+1, arr, sum, k, subseq) == true)
+    if (f(index + 1, arr, sum, k, subseq) == true)
     {
-        // Found answer (stored in subseq)
+        // Answer stored in subseq
         return true;
     }
+
+    // If all recursive calls return false , then
     return false;
 }
 
@@ -74,12 +76,23 @@ vector<int> subsequenceWithSumK(vector<int> &arr, int k)
 int main()
 {
 
-    vector<int> arr = {1,2,3,4,5,6,7};
-    int k = 29;
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
+    cout << "Array is : ";
+    display(arr);
 
+    int k = 200;
     vector<int> subseq = subsequenceWithSumK(arr, k);
 
-    display(subseq);
+    if (!subseq.empty())
+    {
+        cout << "The subsequence with sum " << k << " is : ";
+        display(subseq);
+    }
+
+    else
+    {
+        cout << "There is no subsequence with sum " << k;
+    }
 
     return 0;
 }

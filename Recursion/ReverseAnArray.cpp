@@ -10,19 +10,20 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void reverse(int index, vector<int> &arr)
+void reverse(vector<int> &arr, int startInd, int endInd)
 {
-    if (index >= arr.size() / 2)
+    if (startInd >= endInd)
     {
         return;
     }
-    swap(arr[index], arr[arr.size() - index - 1]);
-    reverse(index + 1, arr);
+    swap(arr[startInd], arr[endInd]);
+    reverse(arr, startInd + 1, endInd - 1);
 }
 
 void reverseArray(vector<int> &arr)
 {
-    reverse(0, arr);
+    int startInd = 0, endInd = arr.size() - 1;
+    reverse(arr, startInd, endInd);
 }
 
 int main()
