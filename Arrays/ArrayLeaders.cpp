@@ -10,13 +10,12 @@ Note : The last element of array is always a leader
 
 void display(vector<int> &arr)
 {
-    for(auto x : arr)
+    for (auto x : arr)
     {
         cout << x << ' ';
     }
     cout << endl;
 }
-
 
 /*
 1. Algorithm Used : Brute Force
@@ -28,18 +27,18 @@ vector<int> arrayLeaders1(vector<int> &arr)
 {
     vector<int> result;
     int n = arr.size();
-    for(int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
     {
         bool flag = false;
-        for(int j=i+1; j<n; j++)
+        for (int j = i + 1; j < n; j++)
         {
-            if(arr[j] >= arr[i])
+            if (arr[j] >= arr[i])
             {
                 flag = true;
                 break;
             }
         }
-        if(flag == false)
+        if (flag == false)
         {
             result.push_back(arr[i]);
         }
@@ -58,9 +57,9 @@ vector<int> arrayLeaders2(vector<int> &arr)
     int n = arr.size();
     vector<int> result;
     int MAX = INT_MIN;
-    for(int i=n-1; i>=0; i--)
+    for (int i = n - 1; i >= 0; i--)
     {
-        if(arr[i] > MAX)
+        if (arr[i] > MAX)
         {
             MAX = max(arr[i], MAX);
             result.push_back(MAX);
@@ -72,10 +71,14 @@ vector<int> arrayLeaders2(vector<int> &arr)
 
 int main()
 {
-    vector<int> arr = {10,22,12,3,0,6};
+    vector<int> arr = {10, 22, 12, 3, 0, 6};
+
+    cout << "Array is : ";
     display(arr);
 
     vector<int> leaders = arrayLeaders2(arr);
+
+    cout << "Leaders in array are : ";
     display(leaders);
 
     return 0;

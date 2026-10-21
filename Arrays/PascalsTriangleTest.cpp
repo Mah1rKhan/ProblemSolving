@@ -16,28 +16,31 @@ void display(vector<vector<int>> &arr)
 
 long long nCr(int n, int r)
 {
-    long long res = 1;
-    for (int i = 0; i < r; i++)
+    long long ans = 1;
+
+    for (int i = 1; i <= r; i++)
     {
-        res *= (n - i);
-        res = res / (i + 1);
+        ans *= (n - i + 1);
+        ans /= i;
     }
-    return res;
+    return ans;
 }
 
 vector<vector<int>> pascalsTriangle(int numRows)
 {
-    vector<vector<int>> result;
-    for (int n = 1; n <= numRows; n++)
+    vector<vector<int>> triangle;
+
+    for (int row = 1; row <= numRows; row++)
     {
-        vector<int> row;
-        for (int r = 1; r <= n; r++)
+        vector<int> currRow;
+        for (int col = 1; col <= row; col++)
         {
-            row.push_back(nCr(n - 1, r - 1));
+            int ele = nCr(row - 1, col - 1);
+            currRow.push_back(ele);
         }
-        result.push_back(row);
+        triangle.push_back(currRow);
     }
-    return result;
+    return triangle;
 }
 
 int main()
