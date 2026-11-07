@@ -24,6 +24,7 @@ double power(double base, int exponent)
     }
 }
 
+
 double calculatePower(double base, int exponent)
 {
     long long N = exponent;
