@@ -10,17 +10,17 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-// Merge sort algorithm
+// Algorithm for merge sort
+// 1. Divide and conquer
+// Recursive divide array into halves until only two elements are left
+// Now sort the two elements and merge into original array
 
-// Divide into n/2 and apply merge sort both halves recursively
-// merge the result of both in sorted manner
-
-void merge(vector<int> &arr, int start, int mid, int end)
+void merge(vector<int> &arr, int low, int mid, int high)
 {
-    int left = start, right = mid + 1;
-
     vector<int> temp;
-    while (left <= mid && right <= end)
+    int left = low, right = mid + 1;
+
+    while (left <= mid && right <= high)
     {
         if (arr[left] < arr[right])
         {
@@ -40,29 +40,28 @@ void merge(vector<int> &arr, int start, int mid, int end)
         left++;
     }
 
-    while (right <= end)
+    while (right <= high)
     {
         temp.push_back(arr[right]);
         right++;
     }
 
-    for (int i = start; i <= end; i++)
+    for (int i = low; i <= high; i++)
     {
-        arr[i] = temp[i - start];
+        arr[i] = temp[i - low];
     }
 }
 
-void mS(vector<int> &arr, int start, int end)
+void mS(vector<int> &arr, int low, int high)
 {
-    if (start >= end)
+    if (low >= high)
     {
         return;
     }
-    int mid = (start + end) / 2;
-    mS(arr, start, mid);
-    mS(arr, mid + 1, end);
-
-    merge(arr, start, mid, end);
+    int mid = (low + high) / 2;
+    mS(arr, low, mid);
+    mS(arr, mid + 1, high);
+    merge(arr, low, mid, high);
 }
 
 void mergeSort(vector<int> &arr)
@@ -70,7 +69,6 @@ void mergeSort(vector<int> &arr)
     int n = arr.size();
     mS(arr, 0, n - 1);
 }
-
 int main()
 {
     vector<int> arr = {1, 4, 2, 5, 6, 7, 3, 0, 9, 8};
