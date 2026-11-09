@@ -28,40 +28,35 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void f(int index, vector<int> &arr, int target, vector<int> &currSubseq, vector<vector<int>> &ans)
+void f(int index, vector<int> &arr, vector<int> &currSubsequence, vector<vector<int>> &ans, int sum, int target)
 {
-    // Base case
-    if (index >= arr.size())
+    if (index == arr.size())
     {
-        // Condition satisfied
-        if (target == 0)
+        if (sum == target)
         {
-            ans.push_back(currSubseq);
+            ans.push_back(currSubsequence);
         }
         return;
     }
 
-    // Pick conditon
-    if (arr[index] <= target)
-    {
-        currSubseq.push_back(arr[index]);
-        f(index + 1, arr, target - arr[index], currSubseq, ans);
+    // Pick condition
+    sum += arr[index];
+    currSubsequence.push_back(arr[index]);
+    f(index + 1, arr, currSubsequence, ans, sum, target);
 
-        // Remove the picked element for next subseq
-        currSubseq.pop_back();
-    }
-
-    // Do not pick and move ahead
-    f(index + 1, arr, target, currSubseq, ans);
+    // Not pick condition
+    sum -= arr[index];
+    currSubsequence.pop_back();
+    f(index + 1, arr, currSubsequence, ans, sum, target);
 }
 
 vector<vector<int>> combinationSum(vector<int> &arr, int target)
 {
+    // Find all the combinations of arr whose sum equals to target
     vector<vector<int>> ans;
-    vector<int> currSubseq;
-
-    f(0, arr, target, currSubseq, ans);
-
+    vector<int> currSubsequence;
+    int sum = 0;
+    f(0, arr, currSubsequence, ans, sum, target);
     return ans;
 }
 
@@ -75,7 +70,7 @@ void display(vector<vector<int>> &subsequences)
 
 int main()
 {
-    vector<int> arr = {2, 3, 4, 5, 6};
+    vector<int> arr = {10, 1, 2, 7, 6, 1, 5};
 
     cout << "Array : ";
     display(arr);
@@ -83,7 +78,7 @@ int main()
     int target = 8;
     cout << "Target : " << target << endl;
 
-    cout << "Combinations : " << endl;
+    cout << "Combinations having sum = " << target << " :" << endl;
     vector<vector<int>> ans = combinationSum(arr, target);
 
     display(ans);
