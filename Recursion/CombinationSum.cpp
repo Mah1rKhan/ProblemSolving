@@ -1,23 +1,5 @@
-/*
-Problem Name : Combination Sum
-Problem Description : Given an array and an integer target, find all the possible combinations possible
-in the array whose sum == target
-Note : A single array element can be used multiple times
-e.g. arr = [1,2,3], target = 8
-valid combinations are [1,1,1,1,1,1,1,1],[2,2,2,2],[2,3,3]......
-*/
 #include <iostream>
 using namespace std;
-
-/*
-Intuition : Use pick and not pick concept to find all the possible subsequences
-
-1. If element <= target , we pick it and reduce target for next recursive call, and do not go ahead , as we can use same element
-multiple times
-2. When coming back from recurive call of pick conditon , we remove the picked element for next combination
-3. Otherwise we do not pick element, move to next index , and do not reduce target
-4. When we picked
-*/
 
 void display(vector<int> &arr)
 {
@@ -28,62 +10,62 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void f(int index, vector<int> &arr, vector<int> &currSubsequence, vector<vector<int>> &ans, int target)
+void display(vector<vector<int>> &arr)
 {
+    for (auto row : arr)
+    {
+        display(row);
+    }
+}
+
+void f(vector<int> &arr, int index, int target, vector<int> &currCombination, vector<vector<int>> &ans)
+{
+    // base condition
     if (index >= arr.size())
     {
         if (target == 0)
         {
-            ans.push_back(currSubsequence);
+            ans.push_back(currCombination);
         }
         return;
     }
 
+    // pick current index element
     if (arr[index] <= target)
     {
-        // Pick condition
-        currSubsequence.push_back(arr[index]);
-        f(index, arr, currSubsequence, ans, target - arr[index]);
+        currCombination.push_back(arr[index]);
+        f(arr, index, target - arr[index], currCombination, ans);
 
-        // Remove the picked element
-        currSubsequence.pop_back();
+        // remove the picked element
+        currCombination.pop_back();
     }
 
-    // Do not pick current element
-    f(index + 1, arr, currSubsequence, ans, target);
+    // do not pick current index element
+    f(arr, index + 1, target, currCombination, ans);
 }
 
 vector<vector<int>> combinationSum(vector<int> &arr, int target)
 {
-    // Find all the combinations of arr whose sum equals to target
     vector<vector<int>> ans;
-    vector<int> currSubsequence;
-    f(0, arr, currSubsequence, ans, target);
-    return ans;
-}
+    vector<int> currCombination;
 
-void display(vector<vector<int>> &subsequences)
-{
-    for (auto subsequence : subsequences)
-    {
-        display(subsequence);
-    }
+    f(arr, 0, target, currCombination, ans);
+
+    return ans;
 }
 
 int main()
 {
-    vector<int> arr = {1, 2, 2};
+    vector<int> arr = {2, 3, 4, 5};
+    int target = 8;
 
     cout << "Array : ";
     display(arr);
 
-    int target = 4;
-    cout << "Target : " << target << endl;
+    vector<vector<int>> combinations = combinationSum(arr, target);
 
-    cout << "Combinations having sum = " << target << " :" << endl;
-    vector<vector<int>> ans = combinationSum(arr, target);
-
-    display(ans);
+    cout << "Combinations having sum = " << target << endl;
+    display(combinations);
 
     return 0;
 }
