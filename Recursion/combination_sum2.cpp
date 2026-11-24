@@ -37,8 +37,8 @@ vector<vector<int>> combinationSum2(int ind, vector<int> &arr, int target)
 
 int main()
 {
-    vector<int> arr = {10, 1, 2, 7, 6, 1, 5};
-    int target = 8;
+    vector<int> arr = {1, 1, 2, 2};
+    int target = 3;
     vector<int> subArr;
 
     vector<vector<int>> result = combinationSum2(0, arr, target);

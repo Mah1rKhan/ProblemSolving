@@ -28,26 +28,29 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void f(int index, vector<int> &arr, vector<int> &currSubsequence, vector<vector<int>> &ans, int sum, int target)
+void f(int index, vector<int> &arr, vector<int> &currSubsequence, vector<vector<int>> &ans, int target)
 {
-    if (index == arr.size())
+    if (index >= arr.size())
     {
-        if (sum == target)
+        if (target == 0)
         {
             ans.push_back(currSubsequence);
         }
         return;
     }
 
-    // Pick condition
-    sum += arr[index];
-    currSubsequence.push_back(arr[index]);
-    f(index + 1, arr, currSubsequence, ans, sum, target);
+    if (arr[index] <= target)
+    {
+        // Pick condition
+        currSubsequence.push_back(arr[index]);
+        f(index, arr, currSubsequence, ans, target - arr[index]);
 
-    // Not pick condition
-    sum -= arr[index];
-    currSubsequence.pop_back();
-    f(index + 1, arr, currSubsequence, ans, sum, target);
+        // Remove the picked element
+        currSubsequence.pop_back();
+    }
+
+    // Do not pick current element
+    f(index + 1, arr, currSubsequence, ans, target);
 }
 
 vector<vector<int>> combinationSum(vector<int> &arr, int target)
@@ -55,8 +58,7 @@ vector<vector<int>> combinationSum(vector<int> &arr, int target)
     // Find all the combinations of arr whose sum equals to target
     vector<vector<int>> ans;
     vector<int> currSubsequence;
-    int sum = 0;
-    f(0, arr, currSubsequence, ans, sum, target);
+    f(0, arr, currSubsequence, ans, target);
     return ans;
 }
 
@@ -70,12 +72,12 @@ void display(vector<vector<int>> &subsequences)
 
 int main()
 {
-    vector<int> arr = {10, 1, 2, 7, 6, 1, 5};
+    vector<int> arr = {1, 2, 2};
 
     cout << "Array : ";
     display(arr);
 
-    int target = 8;
+    int target = 4;
     cout << "Target : " << target << endl;
 
     cout << "Combinations having sum = " << target << " :" << endl;
