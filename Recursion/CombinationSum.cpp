@@ -56,7 +56,7 @@ vector<vector<int>> combinationSum(vector<int> &arr, int target)
 
 int main()
 {
-    vector<int> arr = {2, 3, 4, 5};
+    vector<int> arr = {2, 5, 3, 4, 5};
     int target = 8;
 
     cout << "Array : ";
